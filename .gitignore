@@ -1,0 +1,10 @@
+config.yaml
+config_options.txt
+
+# Personal configuration files - never commit these
+*.env
+!config.env.example
+
+# Downloaded packages
+*.zip
+*.deb
