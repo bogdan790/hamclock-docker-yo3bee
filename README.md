@@ -4,7 +4,7 @@ A Docker setup for [HamClock](https://www.clearskyinstitute.com/ham/HamClock/) �
 
 ## What makes this setup different
 
-- **Single instance, clean setup** — one container, one callsign
+- **Simple by default, scalable by choice** — start with one instance, easily add more
 - **Persistent configuration** — settings survive rebuilds via Docker volume
 - **Robust startup** — configuration errors don't crash the container
 - **Health monitoring** — Docker automatically detects and restarts unhealthy containers
