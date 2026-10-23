@@ -11,6 +11,10 @@ A Docker setup for [HamClock](https://www.clearskyinstitute.com/ham/HamClock/) �
 - **No image junk** — tagged image prevents dangling images on rebuild
 - **Cloudflare Tunnel ready** — optional secure public access without opening firewall ports
 
+## Backend (important)
+
+The original HamClock backend at `clearskyinstitute.com` was shut down in June 2026. This setup now points HamClock at a community backend with the `-b` option, set through `HC_BACKEND` in `config.env` (default `ohb.hamclock.app:80`, [Open HamClock Backend](https://ohb.works/)). `hamclock.com:80` also works. The HamClock source is downloaded from the same backend, and `hceeprom.pl` is bundled in this repo because the contrib download no longer exists.
+
 ## Requirements
 
 - Docker + Docker Compose

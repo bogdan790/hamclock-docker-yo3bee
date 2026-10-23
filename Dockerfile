@@ -15,6 +15,8 @@ ENV FLRIG_PORT="12345"
 ENV FLRIG_HOST="localhost"
 ENV USE_FLRIG="0"
 ENV USE_METRIC="1"
+# Backend server (the original clearskyinstitute.com backend was shut down in June 2026)
+ENV HC_BACKEND="ohb.hamclock.app:80"
 
 USER root
 WORKDIR /root/hamclock
@@ -23,22 +25,19 @@ WORKDIR /root/hamclock
 RUN apk add --no-cache curl make g++ libx11-dev openssl unzip perl
 
 # Install HamClock
-RUN curl -O https://www.clearskyinstitute.com/ham/HamClock/ESPHamClock.zip && \
+RUN curl -fO http://ohb.hamclock.app/ham/HamClock/ESPHamClock.zip && \
     unzip ESPHamClock.zip && \
     cd ESPHamClock && \
     make -j 4 hamclock-web-2400x1440 && \
     make install && \
     cd .. && rm -f ESPHamClock.zip
 
-# Install HamClock Contrib (hceeprom.pl)
-RUN curl -O https://www.clearskyinstitute.com/ham/HamClock/hamclock-contrib.zip && \
-    unzip hamclock-contrib.zip && \
-    mv hamclock-contrib/hceeprom.pl ESPHamClock/hceeprom.pl && \
-    chmod +x ESPHamClock/hceeprom.pl && \
-    rm -f hamclock-contrib.zip
+# Install hceeprom.pl (from HamClock contrib, no longer downloadable)
+COPY hceeprom.pl ESPHamClock/hceeprom.pl
+RUN chmod +x ESPHamClock/hceeprom.pl
 
 # Initialize config file
-RUN /usr/local/bin/hamclock -t 20 & sleep 15; kill -INT %+
+RUN /usr/local/bin/hamclock -t 20 -b $HC_BACKEND & sleep 15; kill -INT %+
 
 # Copy run script
 COPY run.sh .

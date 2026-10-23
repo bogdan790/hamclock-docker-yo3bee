@@ -15,4 +15,4 @@ perl hceeprom.pl NV_FLRIGPORT $FLRIG_PORT || true
 perl hceeprom.pl NV_FLRIGUSE $USE_FLRIG || true
 perl hceeprom.pl NV_METRIC_ON $USE_METRIC || true
 
-/usr/local/bin/hamclock -t 20
+/usr/local/bin/hamclock -t 20 -b "$HC_BACKEND"
