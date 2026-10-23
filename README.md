@@ -1,6 +1,6 @@
 # HamClock Docker
 
-A Docker setup for [HamClock](https://www.clearskyinstitute.com/ham/HamClock/) — a kiosk-style application providing real-time space weather, radio propagation models, operating events and other information useful to amateur radio operators.
+A Docker setup for [HamClock](https://web.archive.org/web/2025/https://www.clearskyinstitute.com/ham/HamClock/) — a kiosk-style application providing real-time space weather, radio propagation models, operating events and other information useful to amateur radio operators.
 
 ## What makes this setup different
 
@@ -13,7 +13,7 @@ A Docker setup for [HamClock](https://www.clearskyinstitute.com/ham/HamClock/) �
 
 ## Backend (important)
 
-The original HamClock backend at `clearskyinstitute.com` was shut down in June 2026. This setup now points HamClock at a community backend with the `-b` option, set through `HC_BACKEND` in `config.env` (default `ohb.hamclock.app:80`, [Open HamClock Backend](https://ohb.works/)). `hamclock.com:80` also works. The HamClock source is downloaded from the same backend, and `hceeprom.pl` is bundled in this repo because the contrib download no longer exists.
+The original HamClock backend at `clearskyinstitute.com` was shut down in June 2026. This setup now points HamClock at a community backend with the `-b` option, set through `HC_BACKEND` in `config.env` (default `ohb.hamclock.app:80`, [Open HamClock Backend](https://ohb.works/)). [`hamclock.com:80`](https://hamclock.com) also works (set `HC_BACKEND=hamclock.com:80`). The HamClock source is downloaded from the same backend, and `hceeprom.pl` is bundled in this repo because the contrib download no longer exists.
 
 ## Requirements
 
@@ -24,7 +24,7 @@ The original HamClock backend at `clearskyinstitute.com` was shut down in June 2
 
 **1. Clone this repository**
 ```bash
-git clone https://github.com/your-username/hamclock-docker-yo3bee.git
+git clone https://github.com/bogdan790/hamclock-docker-yo3bee.git
 cd hamclock-docker-yo3bee
 ```
 
@@ -35,12 +35,9 @@ cp config.env.example config.env
 
 Edit `config.env` with your callsign, locator and coordinates.
 
-**3. Update docker-compose.yml**
+**3. (Optional) Use a different env file name**
 
-In `docker-compose.yml`, set `env_file` to point to your config:
-```yaml
-env_file: config.env
-```
+`docker-compose.yml` reads `config.env` by default. To use another name, change `env_file` in `docker-compose.yml`.
 
 **4. Build and start**
 ```bash
@@ -55,7 +52,7 @@ http://localhost:8091/live.html
 
 ## Configuration
 
-All settings are in your `.env` file. See `config.env.example` for all available options.
+All settings are in your `config.env` file. See `config.env.example` for all available options.
 
 | Variable | Description | Example |
 |----------|-------------|---------|
@@ -67,6 +64,7 @@ All settings are in your `.env` file. See `config.env.example` for all available
 | `VOACAP_MODE` | Propagation mode (SSB=38, CW=19, FT8=13) | `38` |
 | `VOACAP_POWER` | TX power in Watts | `100` |
 | `USE_METRIC` | Metric system (1=yes, 0=no) | `1` |
+| `HC_BACKEND` | Backend server `host:port` | `ohb.hamclock.app:80` |
 
 ## Rebuilding (updating HamClock)
 
@@ -195,7 +193,7 @@ volumes:
 
 Each instance:
 - Has its own port (`8091`, `8092`, etc.)
-- Has its own `.env` file with a different callsign and location
+- Has its own env file with a different callsign and location
 - Has its own persistent volume so settings don't mix
 
 Access them at `http://localhost:8091/live.html`, `http://localhost:8092/live.html`, etc.
@@ -204,7 +202,8 @@ Access them at `http://localhost:8091/live.html`, `http://localhost:8092/live.ht
 
 ## Credits
 
-- [WB0OEW](https://www.clearskyinstitute.com/ham/HamClock/) — HamClock author
+- [WB0OEW](https://web.archive.org/web/2025/https://www.clearskyinstitute.com/ham/HamClock/) — HamClock author (archived page, the original site is offline)
+- [Open HamClock Backend](https://ohb.works/) — community backend that keeps HamClock working after the original servers were shut down
 - [zeidlos/hamclock-docker](https://github.com/zeidlos/hamclock-docker) — original Docker setup and env variable configuration
 - [ChrisRomp/hamclock-docker](https://github.com/ChrisRomp/hamclock-docker) — persistent volume and health check ideas
 
